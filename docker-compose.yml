@@ -1,0 +1,47 @@
+# docker_tutorial/docker-compose.yml
+
+version: "3"
+services:
+
+  database:
+    image: postgres:12.7-alpine
+    volumes:
+        - ./backup_data/db:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_DB=candultima
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
+  pgadmin4:
+     image: dpage/pgadmin4
+     restart: always
+     environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+     ports:
+      - "85:80"
+     depends_on:
+     - database
+
+  django:
+    build: ./django
+    volumes:
+      - ./django:/app
+    depends_on:
+      - database
+  
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - django
+    ports:
+      - 80:80
+
+  nginx_django_server:
+    build: ./nginx_django_server
+    ports:
+        - 8000:8000
+    depends_on:
+        - django
