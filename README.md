@@ -24,8 +24,8 @@ que serve de base para projectos fullstack  nas tecnologias abaixo referenciadas
 
 ## Instacacao
 
-- ``git clone https://github.com/Catson28/Contact-System-_-Django-Postgrees-Docker.git``
+- ``git clone https://github.com/Catson28/4Containers-1.git``
 
-- ``cd Contact-System-_-Django-Postgrees-Docker``
+- ``cd 4Containers-1``
 - ``docker-compose build``
 - ``docker-compose up``
